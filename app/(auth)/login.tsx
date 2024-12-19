@@ -1,19 +1,16 @@
-import { IMG } from "@/assets/images";
-import { Input, InputPassword } from "@/components/@core";
-import { ButtonPrimary, IconButton } from "@/components/@core/button";
-import Row from "@/components/@core/row";
-import Separator from "@/components/@core/separator";
-import TextDefault from "@/components/@core/text-default";
-import { normalize } from "@/helper/helpers";
-import DefaultLayout from "@/layouts/default-layout";
 import { useOAuth, useSignIn } from "@clerk/clerk-expo";
-import { AntDesign, FontAwesome6 } from "@expo/vector-icons";
 import * as Linking from "expo-linking";
-import { router } from "expo-router";
+import { Link } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
 import React, { useState } from "react";
-import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
-import Header from "../header";
+import {
+  Button,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 export const useWarmUpBrowser = () => {
   React.useEffect(() => {
     // Warm up the android browser to improve UX
@@ -125,113 +122,88 @@ const Login = () => {
     }
   }, []);
   return (
-    <DefaultLayout imgBackground={IMG.signInBg}>
-      <Header title="Sign In" />
-      <View style={styles.container}>
-        <TextDefault size={normalize(22)} bold>
-          Welcome Back
-        </TextDefault>
-        <TextDefault color="gray">
-          Please Inter your email address and password for Login
-        </TextDefault>
+    <View style={styles.container}>
+      {loading && <Text>Loading...</Text>}
+      <TextInput
+        autoCapitalize="none"
+        placeholder="simon@galaxies.dev"
+        value={emailAddress}
+        onChangeText={setEmailAddress}
+        style={styles.inputField}
+      />
+      <TextInput
+        placeholder="password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+        style={styles.inputField}
+      />
 
-        <Row
-          direction="column"
-          rowGap={20}
-          full
-          style={{
-            marginTop: normalize(20),
-          }}
-        >
-          <Input
-            placeholder="email"
-            text={emailAddress}
-            onChangeText={setEmailAddress}
-          />
-          <InputPassword
-            placeholder="password"
-            text={password}
-            onChangeText={setPassword}
-          />
-        </Row>
+      <Button onPress={onSignInPress} title="Login" color={"#6c47ff"}></Button>
 
-        <Row
-          full
-          end
-          style={{
-            marginBottom: normalize(20),
-          }}
-        >
-          <TouchableOpacity>
-            <TextDefault>Forgot password?</TextDefault>
-          </TouchableOpacity>
-        </Row>
+      <Link href="/reset" asChild>
+        <Pressable style={styles.button}>
+          <Text>Forgot password?</Text>
+        </Pressable>
+      </Link>
 
-        <ButtonPrimary
-          minWidth={"100%"}
-          onPress={onSignInPress}
-          title="Login"
-          isLoading={loading}
-        />
+      <Pressable
+        onPress={onLoginWithGoogle}
+        style={[
+          styles.button,
+          {
+            backgroundColor: "#f0f0f0",
+            padding: 10,
+            borderRadius: 4,
+            alignItems: "center",
+          },
+        ]}
+      >
+        <Text>Login with google</Text>
+      </Pressable>
 
-        <Separator height={normalize(20)} />
+      <Pressable
+        onPress={onLoginWithGoogleWithDiscord}
+        style={[
+          styles.button,
+          {
+            backgroundColor: "#f0f0f0",
+            padding: 10,
+            borderRadius: 4,
+            alignItems: "center",
+          },
+        ]}
+      >
+        <Text>Login with discord</Text>
+      </Pressable>
+      <Pressable
+        onPress={onLoginWithGoogleWithGithub}
+        style={[
+          styles.button,
+          {
+            backgroundColor: "#f0f0f0",
+            padding: 10,
+            borderRadius: 4,
+            alignItems: "center",
+          },
+        ]}
+      >
+        <Text>Login with github</Text>
+      </Pressable>
 
-        <Row center full>
-          <TextDefault>Sign In With</TextDefault>
-        </Row>
-
-        <Separator height={normalize(20)} />
-        <Row full center colGap={20}>
-          <IconButton
-            icon={
-              <Image
-                source={IMG.google}
-                style={{
-                  width: normalize(25),
-                  height: normalize(25),
-                }}
-              />
-            }
-            onPress={onLoginWithGoogle}
-          />
-          <IconButton
-            icon={<AntDesign name="github" size={24} color="black" />}
-            onPress={onLoginWithGoogleWithGithub}
-          />
-          <IconButton
-            icon={<FontAwesome6 name="discord" size={24} color="#5451D6" />}
-            onPress={onLoginWithGoogleWithDiscord}
-          />
-        </Row>
-        <Row
-          center
-          full
-          colGap={10}
-          style={{
-            marginTop: "auto",
-            marginBottom: normalize(20),
-          }}
-        >
-          <TextDefault>Not Registrar Yet?</TextDefault>
-          <TouchableOpacity
-            onPress={() => {
-              router.push("/sign-up");
-            }}
-          >
-            <TextDefault bold color="#6c47ff">
-              Sign Up
-            </TextDefault>
-          </TouchableOpacity>
-        </Row>
-      </View>
-    </DefaultLayout>
+      <Link href="/sign-up" asChild>
+        <Pressable style={styles.button}>
+          <Text>Create Account</Text>
+        </Pressable>
+      </Link>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    rowGap: 10,
+    justifyContent: "center",
     padding: 20,
   },
   inputField: {

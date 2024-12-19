@@ -6,4 +6,7 @@ export const IMG = {
   face: require("./apps/face.png"),
   google: require("./apps/google.png"),
   apple: require("./apps/apple.png"),
+  introBg: require("./intro-bg.png"),
+  btnBg: require("./btn.png"),
+  signInBg: require("./sign-in-bg.jpg"),
 };

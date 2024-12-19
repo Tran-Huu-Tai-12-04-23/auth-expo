@@ -12,7 +12,7 @@ import "react-native-reanimated";
 import { tokenCache } from "@/cache";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
-import { Slot } from "expo-router";
+import { Slot, Stack } from "expo-router";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -43,7 +43,9 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
         <ClerkLoaded>
-          <Slot />
+          <Stack screenOptions={{ headerShown: false }}>
+            <Slot />
+          </Stack>
         </ClerkLoaded>
       </ClerkProvider>
       <StatusBar style="auto" />
