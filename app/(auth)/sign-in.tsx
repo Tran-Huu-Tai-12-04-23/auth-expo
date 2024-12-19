@@ -162,7 +162,9 @@ const Login = () => {
             marginBottom: normalize(20),
           }}
         >
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => router.push("/(auth)/forgot-password")}
+          >
             <TextDefault>Forgot password?</TextDefault>
           </TouchableOpacity>
         </Row>

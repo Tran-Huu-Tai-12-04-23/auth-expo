@@ -80,7 +80,7 @@ const Input = ({
               borderRadius: rounded,
               fontSize: size,
               ...styleGlobal.border,
-              borderColor: editable ? "black" : "gray",
+              borderColor: editable ? "rgba(116, 90, 255, 0.3)" : "gray",
               color: "black",
             },
           ]}
@@ -142,7 +142,7 @@ const InputPassword = ({
           ...styleGlobal.input,
           padding: 0,
           ...styleGlobal.border,
-          borderColor: "black",
+          borderColor: "rgba(116, 90, 255, 0.3)",
         }}
       >
         {leftIcon && leftIcon}
