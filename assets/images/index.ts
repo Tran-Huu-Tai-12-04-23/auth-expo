@@ -9,4 +9,5 @@ export const IMG = {
   introBg: require("./intro-bg.png"),
   btnBg: require("./btn.png"),
   signInBg: require("./sign-in-bg.jpg"),
+  bottomBar: require("./bottom-tab-img.png"),
 };

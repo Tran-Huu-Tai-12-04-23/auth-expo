@@ -211,7 +211,7 @@ const Login = () => {
           colGap={10}
           style={{
             marginTop: "auto",
-            marginBottom: normalize(20),
+            paddingBottom: normalize(20),
           }}
         >
           <TextDefault>Not Registrar Yet?</TextDefault>

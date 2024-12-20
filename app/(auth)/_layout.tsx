@@ -1,5 +1,5 @@
 import { useAuth } from "@clerk/clerk-expo";
-import { Redirect, Stack } from "expo-router";
+import { Redirect, Slot, Stack } from "expo-router";
 
 export default function AuthRoutesLayout() {
   const { isSignedIn } = useAuth();
@@ -9,9 +9,8 @@ export default function AuthRoutesLayout() {
   }
 
   return (
-    <Stack
-      screenOptions={{ headerShown: false }}
-      initialRouteName="/(auth)/intro"
-    />
+    <Stack screenOptions={{ headerShown: false }}>
+      <Slot />
+    </Stack>
   );
 }

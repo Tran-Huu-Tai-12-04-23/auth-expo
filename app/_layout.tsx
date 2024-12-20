@@ -1,8 +1,4 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
@@ -11,13 +7,8 @@ import "react-native-reanimated";
 
 import { tokenCache } from "@/cache";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import {
-  ClerkLoaded,
-  ClerkProvider,
-  SignedIn,
-  SignedOut,
-} from "@clerk/clerk-expo";
-import { Stack } from "expo-router";
+import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
+import { Slot } from "expo-router";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -43,24 +34,15 @@ export default function RootLayout() {
   if (!loaded) {
     return null;
   }
-
+  // colorScheme === "dark" ? DarkTheme :
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={DefaultTheme}>
       <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
         <ClerkLoaded>
-          <SignedIn>
-            <Stack screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="(home)" />
-            </Stack>
-          </SignedIn>
-          <SignedOut>
-            <Stack screenOptions={{ headerShown: false }}>
-              <Stack.Screen name="(auth)" />
-            </Stack>
-          </SignedOut>
+          <Slot />
         </ClerkLoaded>
       </ClerkProvider>
-      <StatusBar style="auto" />
+      <StatusBar style="dark" />
     </ThemeProvider>
   );
 }
